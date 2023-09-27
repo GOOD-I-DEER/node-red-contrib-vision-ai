@@ -1,6 +1,60 @@
-# node-red-contrib-vision-ai
+# @GOOD-I-DEER/node-red-contrib-vision-ai
 
+[![platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
+[![npm version](https://badge.fury.io/js/@good-i-deer%2Fnode-red-contrib-vision-ai.svg)](https://badge.fury.io/js/@good-i-deer%2Fnode-red-contrib-vision-ai)
+[![GitHub license](https://img.shields.io/github/license/GOOD-I-DEER/node-red-contrib-vision-ai)](https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/blob/main/LICENSE)
 
+Nodes are the building blocks for creating a face recognition flow using AI in Node-RED.
+
+These nodes require node.js version 18.16.1 and Node-RED version 3.1.0.
+
+<hr>
+
+## Description
+
+This nodes provide object detection, face detection, face vectorization, vector comparing and vector database that work with Node-RED.  
+If you would like a more detailed explanation, please refer to the links below:  
+[@good-i-deer/node-red-contrib-face-vectorization](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-face-vectorization)  
+[@good-i-deer/node-red-cosine-similarity](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-cosine-similarity)  
+[@good-i-deer/node-red-contrib-chromadb](https://badge.fury.io/js/@good-i-deer/node-red-contrib-chromadb)  
+[@good-i-deer/node-red-contrib-face-detection](https://badge.fury.io/js/@good-i-deer/node-red-contrib-face-detection)  
+[@good-i-deer/node-red-contrib-object-detection](https://badge.fury.io/js/@good-i-deer/node-red-contrib-object-detection)
+
+<hr>
+
+## Pre-requisites
+
+The Node-Red-Contrib-Face-Vectorization requires [Node-RED](https://nodered.org) to be installed.
+
+<hr>
+
+## Nodes
+
+> This is a brief description of each node.
+
+- _Good Calculate Cosine_: It calculate cosine similarity between two vectors and return it as an array.
+- _Good Calculate Cosine_: It converts facial photos to vectors using AI as an array.
+<hr>
+
+## Install
+
+```
+cd ~/.node-red
+npm install @good-i-deer/node-red-contrib-vision-ai
+```
+
+Restart your Node-RED instance
+
+<hr>
+
+## Examples
+
+<hr>
+## Discussions and suggestions
+
+Use [GitHub Issues](https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/issues) to ask questions or to discuss new features.
+
+<hr>
 
 ## Authors
 
@@ -16,7 +70,7 @@
 
 ## Copyright and license
 
-Copyright Samsung Automation Studio Team under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0)
+Copyright Samsung Automation Studio Team under the [General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0)
 
 <hr>
 

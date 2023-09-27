@@ -53,5 +53,6 @@
   "homepage": "https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+  "main": "static-server.js"
 }
