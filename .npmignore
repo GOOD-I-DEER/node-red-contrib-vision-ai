@@ -18,4 +18,4 @@ coverage
 .idea
 .editorconfig
 
-./model
+*.onnx
