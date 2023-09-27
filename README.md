@@ -1,6 +1,25 @@
 # node-red-contrib-vision-ai
+[![platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
 
+These nodes require node.js version 18.16.1 and Node-RED version 3.1.0.
+<hr>
 
+## Description
+<hr>
+
+## Pre-requisites
+The Node-RED-Soop-Dashboard requires [Node-RED](https://nodered.org) to be installed.
+<hr>
+
+## Nodes
+> This is a brief description of each node.
+
+- *Good Calculate Cosine*: It calculate cosine similarity between two vectors and return it as an array.
+<hr>
+
+## Discussions and suggestions
+Use [GitHub Issues](https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/issues) to ask questions or to discuss new features.
+<hr>
 
 ## Authors
 
