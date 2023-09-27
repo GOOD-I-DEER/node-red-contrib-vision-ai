@@ -50,6 +50,7 @@ Restart your Node-RED instance
 ## Examples
 
 <hr>
+
 ## Discussions and suggestions
 
 Use [GitHub Issues](https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/issues) to ask questions or to discuss new features.
