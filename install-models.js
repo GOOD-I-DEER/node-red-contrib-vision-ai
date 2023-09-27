@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const modelUrls = {
-  facenet:
+  "facenet-model":
     "https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/raw/main/nodes/model/facenet-model.onnx",
   yolov8m:
     "https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/raw/main/nodes/model/yolov8m.onnx",
