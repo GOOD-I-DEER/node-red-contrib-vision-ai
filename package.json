@@ -1,0 +1,57 @@
+{
+  "name": "@good-i-deer/node-red-contrib-vision-ai",
+  "version": "1.0.0",
+  "description": "Facial Recognize Nodes With AI for Node-RED",
+  "keywords": [
+    "node-red",
+    "Face",
+    "Vectorization",
+    "Vector",
+    "FaceNet"
+  ],
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai.git"
+  },
+  "author": "GOOD-I-DEER",
+  "node-red": {
+    "nodes": {
+      "GoodObjectDetection": "nodes/object-detection-node/object-detection.js",
+      "GoodFaceDetection": "nodes/face-detection-node/face-detection.js",
+      "GoodWebcamObjectDetection": "nodes/webcam-object-detection-node/webcam-object-detection.js",
+      "ChromaDB": "nodes/chroma-db-node/chroma-db.js",
+      "FaceVectorization": "nodes/face-vectorization-node/face-vectorization.js",
+      "CalculateCosine": "nodes/cosine-similarity-node/calculate-cosine.js"
+    }
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "chromadb": "^1.5.9",
+    "fs-extra": "^11.1.1",
+    "http-signature": "^1.3.2",
+    "is-utf8": "^0.2.1",
+    "mustache": "^4.0.0",
+    "mysql": "~2.18.1",
+    "on-headers": "^1.0.2",
+    "onnxruntime-node": "^1.14.0",
+    "path": "^0.12.7",
+    "pg": "^8.3.0",
+    "proxy-agent": "^5.0",
+    "when": "3.7.8",
+    "xml2js": "^0.6.2",
+    "express": "^4.18.2",
+    "serve-static": "^1.15.0",
+    "sharp": "^0.32.6",
+    "socket.io": "^4.7.2"
+  },
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/issues"
+  },
+  "homepage": "https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
