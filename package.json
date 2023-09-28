@@ -1,13 +1,22 @@
 {
   "name": "@good-i-deer/node-red-contrib-vision-ai",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Facial Recognize Nodes With AI for Node-RED",
   "keywords": [
     "node-red",
-    "Face",
-    "Vectorization",
-    "Vector",
-    "FaceNet"
+    "FaceNet",
+    "face detection",
+    "yolo",
+    "onnx",
+    "object detection",
+    "webcam",
+    "vector",
+    "database",
+    "chromadb",
+    "embedding",
+    "cosine",
+    "similarity",
+    "distance"
   ],
   "license": "GPL-3.0",
   "repository": {

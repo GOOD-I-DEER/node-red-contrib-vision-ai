@@ -16,9 +16,9 @@ This nodes provide object detection, face detection, face vectorization, vector 
 If you would like a more detailed explanation, please refer to the links below:  
 [@good-i-deer/node-red-contrib-face-vectorization](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-face-vectorization)  
 [@good-i-deer/node-red-cosine-similarity](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-cosine-similarity)  
-[@good-i-deer/node-red-contrib-chromadb](https://badge.fury.io/js/@good-i-deer/node-red-contrib-chromadb)  
-[@good-i-deer/node-red-contrib-face-detection](https://badge.fury.io/js/@good-i-deer/node-red-contrib-face-detection)  
-[@good-i-deer/node-red-contrib-object-detection](https://badge.fury.io/js/@good-i-deer/node-red-contrib-object-detection)
+[@good-i-deer/node-red-contrib-chromadb](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-chromadb)  
+[@good-i-deer/node-red-contrib-face-detection](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-face-detection)  
+[@good-i-deer/node-red-contrib-object-detection](https://www.npmjs.com/package/@good-i-deer/node-red-contrib-object-detection)
 
 <hr>
 
@@ -33,7 +33,7 @@ The Node-Red-Contrib-Face-Vectorization requires [Node-RED](https://nodered.org)
 > This is a brief description of each node.
 
 - _Good Calculate Cosine_: It calculate cosine similarity between two vectors and return it as an array.
-- _Good Calculate Cosine_: It converts facial photos to vectors using AI as an array.
+- _Good Face Vectorization_: It converts facial photos to vectors using AI as an array.
 <hr>
 
 ## Install
@@ -82,4 +82,10 @@ Copyright Samsung Automation Studio Team under the [General Public License v3.0]
 - [FaceNet: A Unified Embedding for Face Recognition and Clustering](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Schroff_FaceNet_A_Unified_2015_CVPR_paper.pdf)
 - [VGGFace2](https://paperswithcode.com/dataset/vggface2-1)
 - [inception_resnet_v1](https://github.com/timesler/facenet-pytorch/blob/master/models/inception_resnet_v1.py)
+- [Ultralytics YOLOv8](https://docs.ultralytics.com/)
+- [yolov8 onnx on javascript](https://github.com/AndreyGermanov/yolov8_onnx_javascript)
+- [yolov8 onnx on nodejs](https://github.com/AndreyGermanov/yolov8_onnx_nodejs)
+- [yolov8 face model](https://github.com/akanametov/yolov8-face/tree/dev#inference)
+- [ChromaDB Github Repository](https://github.com/chroma-core/chroma)
+
 <hr>
