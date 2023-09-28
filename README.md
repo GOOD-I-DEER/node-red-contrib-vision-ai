@@ -33,7 +33,7 @@ The Node-Red-Contrib-Face-Vectorization requires [Node-RED](https://nodered.org)
 > This is a brief description of each node.
 
 - _Good Calculate Cosine_: It calculate cosine similarity between two vectors and return it as an array.
-- _Good Calculate Cosine_: It converts facial photos to vectors using AI as an array.
+- _Good Face Vectorization_: It converts facial photos to vectors using AI as an array.
 <hr>
 
 ## Install

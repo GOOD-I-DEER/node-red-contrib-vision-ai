@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Facial Recognize Nodes With AI for Node-RED",
   "keywords": [
-    "Node-RED",
+    "node-red",
     "FaceNet",
     "face detection",
     "yolo",
