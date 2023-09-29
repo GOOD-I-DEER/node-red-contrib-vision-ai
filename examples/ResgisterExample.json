@@ -1,0 +1,1123 @@
+[
+    {
+        "id": "055c98606c931f5b",
+        "type": "tab",
+        "label": "User Registration Example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "334d5fbc400a4d09",
+        "type": "inject",
+        "z": "055c98606c931f5b",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "4760404bb74fd565"
+            ]
+        ]
+    },
+    {
+        "id": "4760404bb74fd565",
+        "type": "file in",
+        "z": "055c98606c931f5b",
+        "name": "Image Path",
+        "filename": "",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "a97c094b3457d8cc",
+                "13b1112af91bcf3f"
+            ]
+        ]
+    },
+    {
+        "id": "a97c094b3457d8cc",
+        "type": "good-object-detection",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "returnValue": "0",
+        "model": "yolov8n",
+        "threshold": 0.5,
+        "absolutePathDir": "",
+        "x": 480,
+        "y": 140,
+        "wires": [
+            [
+                "c4f25d8144c36cd0",
+                "dda59b39a5f988e5"
+            ]
+        ]
+    },
+    {
+        "id": "13b1112af91bcf3f",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Input Image",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 450,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c4f25d8144c36cd0",
+        "type": "debug",
+        "z": "055c98606c931f5b",
+        "name": "Object Detection Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "dda59b39a5f988e5",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "check if person exists",
+        "func": "if(msg.payload.data.hasOwnProperty(\"person\")) {\n    msg.next = true;\n    msg.payload = msg.payload.originImg;\n} else {\n    msg.next = false;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 140,
+        "wires": [
+            [
+                "26b24ecf67973821"
+            ]
+        ]
+    },
+    {
+        "id": "26b24ecf67973821",
+        "type": "switch",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 910,
+        "y": 180,
+        "wires": [
+            [
+                "eb2c8ec65d140976"
+            ],
+            [
+                "a81e55e82001909c"
+            ]
+        ]
+    },
+    {
+        "id": "eb2c8ec65d140976",
+        "type": "good-face-detection",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "returnValue": "1",
+        "threshold": "0.5",
+        "absolutePathDir": "",
+        "x": 1100,
+        "y": 140,
+        "wires": [
+            [
+                "c5e8d82a2359ff4b",
+                "ce27ea806ba14e88",
+                "bf02cef20c7c5573",
+                "8e12543b6e483f99",
+                "8446c8d601ee8fcf"
+            ]
+        ]
+    },
+    {
+        "id": "bf02cef20c7c5573",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "check if face exists",
+        "func": "if (msg.payload.data.face.length === 1){\n    msg.next = true;\n    msg.payload = msg.payload.data.face;\n} else if (msg.payload.data.face.length === 0) {\n    msg.next = false;\n    msg.errMsg = \"Couldn't find the face. Please try again.\";\n} else {\n    msg.next = false;\n    msg.errMsg = \"There are several faces. Please register only one person.\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 140,
+        "wires": [
+            [
+                "f8aa938b61591ffb"
+            ]
+        ]
+    },
+    {
+        "id": "c5e8d82a2359ff4b",
+        "type": "debug",
+        "z": "055c98606c931f5b",
+        "name": "Number of faces extracted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.data.face.length",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ce27ea806ba14e88",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 1",
+        "width": 160,
+        "data": "payload.data.face[0]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1310,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "f8aa938b61591ffb",
+        "type": "switch",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1710,
+        "y": 160,
+        "wires": [
+            [
+                "2ca56057b286ed99"
+            ],
+            [
+                "061cd6fe11f24d84"
+            ]
+        ]
+    },
+    {
+        "id": "2ca56057b286ed99",
+        "type": "face-vectorization",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "inputType": "1",
+        "returnType": "1",
+        "method": "0",
+        "path": "./examples/Example.txt",
+        "x": 1950,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a81e55e82001909c",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Error Messege",
+        "func": "return console.log(\"Couldn't find anyone. Please try again.\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "061cd6fe11f24d84",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Error Messege",
+        "func": "return console.log(msg.errMsg);",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1920,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "35437ccdc48fc7cb",
+        "type": "inject",
+        "z": "055c98606c931f5b",
+        "name": "Start registering users with 360 cameras in overwrite",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 800,
+        "wires": [
+            [
+                "ee8fdba3ba40e407"
+            ]
+        ]
+    },
+    {
+        "id": "275c2082fb751207",
+        "type": "good-object-detection",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "returnValue": "0",
+        "model": "yolov8n",
+        "threshold": 0.5,
+        "absolutePathDir": "",
+        "x": 560,
+        "y": 960,
+        "wires": [
+            [
+                "2d262c24765191ce",
+                "d10e4d4be4277b52"
+            ]
+        ]
+    },
+    {
+        "id": "aae8a9c9e8262196",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "iot capture image",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 570,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "2d262c24765191ce",
+        "type": "debug",
+        "z": "055c98606c931f5b",
+        "name": "Object Detection Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "d10e4d4be4277b52",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "check if person exists",
+        "func": "if(msg.payload.data.hasOwnProperty(\"person\")) {\n    msg.next = true;\n    msg.payload = msg.payload.originImg;\n} else {\n    msg.next = false;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 960,
+        "wires": [
+            [
+                "3fa069ad90de7a80"
+            ]
+        ]
+    },
+    {
+        "id": "3fa069ad90de7a80",
+        "type": "switch",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 990,
+        "y": 960,
+        "wires": [
+            [
+                "9962eb5170c9a941"
+            ],
+            [
+                "ea1c98f1e5579318"
+            ]
+        ]
+    },
+    {
+        "id": "9962eb5170c9a941",
+        "type": "good-face-detection",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "returnValue": "1",
+        "threshold": "0.3",
+        "absolutePathDir": "",
+        "x": 1180,
+        "y": 920,
+        "wires": [
+            [
+                "1987fe98dd22375f",
+                "e078070b62147c27",
+                "2815aaf8682a6b2a",
+                "074e5e4b6b3a14d8",
+                "c16fdcfec70c3ae9"
+            ]
+        ]
+    },
+    {
+        "id": "1987fe98dd22375f",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "check if face exists",
+        "func": "if (msg.payload.data.face.length >= 1){\n    msg.next = true;\n    msg.payload = msg.payload.data.face;\n} else {\n    msg.next = false;\n    msg.errMsg = \"Couldn't find the face. Please try again.\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1430,
+        "y": 940,
+        "wires": [
+            [
+                "21376d9f08c57574"
+            ]
+        ]
+    },
+    {
+        "id": "21376d9f08c57574",
+        "type": "switch",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1610,
+        "y": 940,
+        "wires": [
+            [
+                "94ea6ac664b94b5a"
+            ],
+            [
+                "d9f050c49c9383a9"
+            ]
+        ]
+    },
+    {
+        "id": "94ea6ac664b94b5a",
+        "type": "face-vectorization",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "inputType": "1",
+        "returnType": "1",
+        "method": "0",
+        "path": "./examples/Example.txt",
+        "x": 1810,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "143b8bb1a79412bf",
+        "type": "status-device",
+        "z": "055c98606c931f5b",
+        "name": "Smart Things 360 camera",
+        "alias": "홈카메라 360 서울",
+        "deviceNodeId": "fdc5e8092c1ec104",
+        "deviceType": "installed-device",
+        "deviceId": "4da0b057-ab8f-44a3-af2b-ebcddfa29cfa",
+        "componentId": "",
+        "capabilityId": "imageCapture_v1",
+        "attributeId": "image",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 860,
+        "wires": [
+            [
+                "fd9e0761a7e11d66"
+            ]
+        ]
+    },
+    {
+        "id": "fd9e0761a7e11d66",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Get Url",
+        "func": "return {\n    \"url\" : msg.payload.components.main.imageCapture.image.value\n}",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 920,
+        "wires": [
+            [
+                "8f48369ef5b0b5fe"
+            ]
+        ]
+    },
+    {
+        "id": "8f48369ef5b0b5fe",
+        "type": "http request",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Authorization",
+                "valueType": "other",
+                "valueValue": "Bearer 2a4f1a67-8a2f-42a0-b48b-ec3b37565e23"
+            }
+        ],
+        "x": 190,
+        "y": 1000,
+        "wires": [
+            [
+                "aae8a9c9e8262196",
+                "275c2082fb751207"
+            ]
+        ]
+    },
+    {
+        "id": "ee8fdba3ba40e407",
+        "type": "command-device",
+        "z": "055c98606c931f5b",
+        "name": "Smart Things 360 camera",
+        "alias": "take",
+        "deviceNodeId": "fdc5e8092c1ec104",
+        "deviceType": "installed-device",
+        "deviceId": "4da0b057-ab8f-44a3-af2b-ebcddfa29cfa",
+        "componentId": "",
+        "capabilityId": "imageCapture_v1",
+        "attributeId": "take",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 860,
+        "wires": [
+            [
+                "143b8bb1a79412bf"
+            ]
+        ]
+    },
+    {
+        "id": "4d7764aab359dca7",
+        "type": "installed-device",
+        "z": "3abd784315b57070",
+        "name": "SmartThings PAT",
+        "alias": "",
+        "device": "",
+        "devices": null,
+        "profileId": "4d7764aab359dca7",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "64eb34ea1451d3e6",
+        "type": "comment",
+        "z": "055c98606c931f5b",
+        "name": "User Registration Overwrite Example",
+        "info": "",
+        "x": 160,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "8e12543b6e483f99",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 1",
+        "width": 160,
+        "data": "payload.data.face[1]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1510,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8446c8d601ee8fcf",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 2",
+        "width": 160,
+        "data": "payload.data.face[2]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1710,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2469c5a9cc3cee6a",
+        "type": "file in",
+        "z": "055c98606c931f5b",
+        "name": "Image Path",
+        "filename": "",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 250,
+        "y": 520,
+        "wires": [
+            [
+                "c209e5b968755c22",
+                "e22589c667c8eb12"
+            ]
+        ]
+    },
+    {
+        "id": "4e155d069772bdcc",
+        "type": "inject",
+        "z": "055c98606c931f5b",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 520,
+        "wires": [
+            [
+                "2469c5a9cc3cee6a"
+            ]
+        ]
+    },
+    {
+        "id": "c209e5b968755c22",
+        "type": "good-object-detection",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "returnValue": "0",
+        "model": "yolov8n",
+        "threshold": 0.5,
+        "absolutePathDir": "",
+        "x": 480,
+        "y": 480,
+        "wires": [
+            [
+                "edfe130bc2475cb1",
+                "bf91e71c02c2afcd"
+            ]
+        ]
+    },
+    {
+        "id": "e22589c667c8eb12",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Input Image",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 450,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "edfe130bc2475cb1",
+        "type": "debug",
+        "z": "055c98606c931f5b",
+        "name": "Object Detection Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "bf91e71c02c2afcd",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "check if person exists",
+        "func": "if(msg.payload.data.hasOwnProperty(\"person\")) {\n    msg.next = true;\n    msg.payload = msg.payload.originImg;\n} else {\n    msg.next = false;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 480,
+        "wires": [
+            [
+                "ec1882c09743f825"
+            ]
+        ]
+    },
+    {
+        "id": "ec1882c09743f825",
+        "type": "switch",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 910,
+        "y": 520,
+        "wires": [
+            [
+                "5624ae8625c55b35"
+            ],
+            [
+                "63c423b95e4ade64"
+            ]
+        ]
+    },
+    {
+        "id": "5624ae8625c55b35",
+        "type": "good-face-detection",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "returnValue": "1",
+        "threshold": "0.5",
+        "absolutePathDir": "",
+        "x": 1100,
+        "y": 480,
+        "wires": [
+            [
+                "0d7db66b97fae730",
+                "2aca0bea8ebf3b5a",
+                "0b68b8c711e52401",
+                "870c18b3780120d6",
+                "38a12dc86af4c102"
+            ]
+        ]
+    },
+    {
+        "id": "63c423b95e4ade64",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Error Messege",
+        "func": "return console.log(\"Couldn't find anyone. Please try again.\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d7db66b97fae730",
+        "type": "debug",
+        "z": "055c98606c931f5b",
+        "name": "Number of faces extracted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.data.face.length",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "2aca0bea8ebf3b5a",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 1",
+        "width": 160,
+        "data": "payload.data.face[0]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1310,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "0b68b8c711e52401",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "check if face exists",
+        "func": "if (msg.payload.data.face.length === 1){\n    msg.next = true;\n    msg.payload = msg.payload.data.face;\n} else if (msg.payload.data.face.length === 0) {\n    msg.next = false;\n    msg.errMsg = \"Couldn't find the face. Please try again.\";\n} else {\n    msg.next = false;\n    msg.errMsg = \"There are several faces. Please register only one person.\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 480,
+        "wires": [
+            [
+                "13e0e8684bdb8bf2"
+            ]
+        ]
+    },
+    {
+        "id": "870c18b3780120d6",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 1",
+        "width": 160,
+        "data": "payload.data.face[1]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1510,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "38a12dc86af4c102",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 2",
+        "width": 160,
+        "data": "payload.data.face[2]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1710,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "13e0e8684bdb8bf2",
+        "type": "switch",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1710,
+        "y": 500,
+        "wires": [
+            [
+                "42818e21ad5b7524"
+            ],
+            [
+                "a85142ef6077df61"
+            ]
+        ]
+    },
+    {
+        "id": "42818e21ad5b7524",
+        "type": "face-vectorization",
+        "z": "055c98606c931f5b",
+        "name": "",
+        "inputType": "1",
+        "returnType": "1",
+        "method": "1",
+        "path": "./examples/Example.txt",
+        "x": 1950,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "a85142ef6077df61",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Error Messege",
+        "func": "return console.log(msg.errMsg);",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1920,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c5a004bc79e339b8",
+        "type": "comment",
+        "z": "055c98606c931f5b",
+        "name": "User Registration Add Example",
+        "info": "",
+        "x": 150,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "ea1c98f1e5579318",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Error Messege",
+        "func": "return console.log(\"Couldn't find anyone. Please try again.\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9f050c49c9383a9",
+        "type": "function",
+        "z": "055c98606c931f5b",
+        "name": "Error Messege",
+        "func": "return console.log(msg.errMsg);",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1780,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2815aaf8682a6b2a",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 1",
+        "width": 160,
+        "data": "payload.data.face[0]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1430,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "074e5e4b6b3a14d8",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 1",
+        "width": 160,
+        "data": "payload.data.face[1]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1630,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "c16fdcfec70c3ae9",
+        "type": "image",
+        "z": "055c98606c931f5b",
+        "name": "Extracted Face 2",
+        "width": 160,
+        "data": "payload.data.face[2]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1830,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "e078070b62147c27",
+        "type": "debug",
+        "z": "055c98606c931f5b",
+        "name": "Number of faces extracted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.data.face.length",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 880,
+        "wires": []
+    }
+]

@@ -33,10 +33,10 @@ async function downloadModels() {
         fileStream.on("finish", resolve);
         fileStream.on("error", reject);
       });
-      console.log(`모델 파일 ${modelName}.onnx 다운로드 완료`);
+      console.log(`Model file ${modelName}.onnx Download Complete`);
     }
   } catch (error) {
-    console.error("모델 파일 다운로드 중 오류 발생:", error);
+    console.error("Error downloading model file:", error);
   }
 }
 

@@ -1,0 +1,255 @@
+[
+    {
+        "id": "e64532d90f9d901d",
+        "type": "tab",
+        "label": "Webcam Example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "77c117be75f4fd81",
+        "type": "http in",
+        "z": "e64532d90f9d901d",
+        "name": "",
+        "url": "/webcamYolo",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "22bc7eb63595a6d8"
+            ]
+        ]
+    },
+    {
+        "id": "fd99905d5d8f41c6",
+        "type": "http response",
+        "z": "e64532d90f9d901d",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 610,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "22bc7eb63595a6d8",
+        "type": "webcam-object-detection",
+        "z": "e64532d90f9d901d",
+        "name": "",
+        "model": "yolov8n",
+        "threshold": 0.5,
+        "serverUrl": "localhost",
+        "socketUrl": "http://localhost",
+        "socketPort": "1900",
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "fd99905d5d8f41c6"
+            ],
+            [
+                "80d8ca9b48e9c36f",
+                "762c3ac1353188d0"
+            ]
+        ]
+    },
+    {
+        "id": "80d8ca9b48e9c36f",
+        "type": "function",
+        "z": "e64532d90f9d901d",
+        "name": "check if person exists",
+        "func": "if(msg.payload.hasOwnProperty(\"person\")) {\n    msg.next = true;\n    msg.payload = msg.payload.originImg;\n} else {\n    msg.next = false;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 220,
+        "wires": [
+            [
+                "b8070c30f488afc5"
+            ]
+        ]
+    },
+    {
+        "id": "b8070c30f488afc5",
+        "type": "switch",
+        "z": "e64532d90f9d901d",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 220,
+        "wires": [
+            [
+                "f09444d3253a6909"
+            ],
+            [
+                "ba5fde1527a7ab4e"
+            ]
+        ]
+    },
+    {
+        "id": "ba5fde1527a7ab4e",
+        "type": "file in",
+        "z": "e64532d90f9d901d",
+        "name": "Light Off",
+        "filename": "",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1010,
+        "y": 240,
+        "wires": [
+            [
+                "deb8d3ab24982b33",
+                "19a9bea0bff54b33"
+            ]
+        ]
+    },
+    {
+        "id": "deb8d3ab24982b33",
+        "type": "function",
+        "z": "e64532d90f9d901d",
+        "name": "function 7",
+        "func": "msg.payload = \"There is no people!!\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 240,
+        "wires": [
+            [
+                "bf9cadcd44cd36f1"
+            ]
+        ]
+    },
+    {
+        "id": "bf9cadcd44cd36f1",
+        "type": "debug",
+        "z": "e64532d90f9d901d",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "f09444d3253a6909",
+        "type": "file in",
+        "z": "e64532d90f9d901d",
+        "name": "Light On",
+        "filename": "",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1010,
+        "y": 180,
+        "wires": [
+            [
+                "19a9bea0bff54b33",
+                "378dea5cf74d870f"
+            ]
+        ]
+    },
+    {
+        "id": "378dea5cf74d870f",
+        "type": "function",
+        "z": "e64532d90f9d901d",
+        "name": "function 8",
+        "func": "msg.payload = \"I can't find face!!\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 180,
+        "wires": [
+            [
+                "b8abd664d599f9c0"
+            ]
+        ]
+    },
+    {
+        "id": "b8abd664d599f9c0",
+        "type": "debug",
+        "z": "e64532d90f9d901d",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "19a9bea0bff54b33",
+        "type": "image",
+        "z": "e64532d90f9d901d",
+        "name": "result",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1170,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "762c3ac1353188d0",
+        "type": "debug",
+        "z": "e64532d90f9d901d",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 280,
+        "wires": []
+    }
+]
