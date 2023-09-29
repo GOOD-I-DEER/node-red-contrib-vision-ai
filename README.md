@@ -111,8 +111,8 @@ Use [GitHub Issues](https://github.com/GOOD-I-DEER/node-red-contrib-vision-ai/is
 [**GOOD-I-DEER**](https://github.com/GOOD-I-DEER) in SSAFY(Samsung Software Academy for Youth) 9th
 
 - [Kim Jaea](https://github.com/kimjaea)
-- [Yi Jong Min](https://github.com/chickennight)
 - [Lee Deok Yong](https://github.com/Gitgloo)
+- [Yi Jong Min](https://github.com/chickennight)
 - [Lee Che Lim](https://github.com/leecr1215)
 - [Lee Hyo Sik](https://github.com/hy06ix)
 - [Jung Gyu Sung](https://github.com/ramaking)
