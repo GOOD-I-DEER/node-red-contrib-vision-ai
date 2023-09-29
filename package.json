@@ -1,6 +1,6 @@
 {
   "name": "@good-i-deer/node-red-contrib-vision-ai",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Facial Recognize Nodes With AI for Node-RED",
   "keywords": [
     "node-red",
