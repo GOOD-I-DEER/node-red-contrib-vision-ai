@@ -37,7 +37,7 @@ The node-red-contrib-vision-ai requires [Node-RED](https://nodered.org) to be in
 - _Good ChromaDB_: It connects and operates with ChromaDB server.
 - _Good Face Detection_ : It detects faces in the photo using yolov8.
 - _Good Object Detection_ : It detects objects in the photo using yolov8.
-- Good Webcam Object Detection\_ : It detects objects in the webcam.
+- Good Webcam Object Detection_ : It detects objects in the webcam.
 <hr>
 
 ## Install
