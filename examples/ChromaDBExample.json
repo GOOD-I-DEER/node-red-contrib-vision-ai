@@ -1,0 +1,179 @@
+[
+    {
+        "id": "8fab5feccdf8615c",
+        "type": "tab",
+        "label": "ChromaDB Example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bbd5eb14fea36ece",
+        "type": "inject",
+        "z": "8fab5feccdf8615c",
+        "name": "Embeddings",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[2.2, 3.4, 5.6]",
+        "payloadType": "jsonata",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "7aa75543c37c854b"
+            ]
+        ]
+    },
+    {
+        "id": "7aa75543c37c854b",
+        "type": "chroma-db",
+        "z": "8fab5feccdf8615c",
+        "name": "",
+        "dbIp": "http://localhost",
+        "dbPort": "8000",
+        "dbName": "MyCollection",
+        "distance": "cosine",
+        "operation": "query",
+        "nResults": "1",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "95a00582f9fe669d"
+            ]
+        ]
+    },
+    {
+        "id": "95a00582f9fe669d",
+        "type": "debug",
+        "z": "8fab5feccdf8615c",
+        "name": "Distance",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.distances[0]",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "98fe2d9e7e6d7ea2",
+        "type": "inject",
+        "z": "8fab5feccdf8615c",
+        "name": "Embeddings",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[1.2, 2.4, 3.6]",
+        "payloadType": "jsonata",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "e93bc75960bd7916"
+            ]
+        ]
+    },
+    {
+        "id": "27d39b2212dfb94b",
+        "type": "chroma-db",
+        "z": "8fab5feccdf8615c",
+        "name": "Insert",
+        "dbIp": "http://localhost",
+        "dbPort": "8000",
+        "dbName": "MyCollection",
+        "distance": "cosine",
+        "operation": "insert",
+        "nResults": "1",
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "725a6fa4fc896386"
+            ]
+        ]
+    },
+    {
+        "id": "725a6fa4fc896386",
+        "type": "debug",
+        "z": "8fab5feccdf8615c",
+        "name": "Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "result",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b0619bf4e563ca10",
+        "type": "comment",
+        "z": "8fab5feccdf8615c",
+        "name": "Insert",
+        "info": "",
+        "x": 130,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e93bc75960bd7916",
+        "type": "chroma-db",
+        "z": "8fab5feccdf8615c",
+        "name": "Create",
+        "dbIp": "http://localhost",
+        "dbPort": "8000",
+        "dbName": "MyCollection",
+        "distance": "cosine",
+        "operation": "create",
+        "nResults": "1",
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "27d39b2212dfb94b"
+            ]
+        ]
+    },
+    {
+        "id": "4292a9044362e632",
+        "type": "comment",
+        "z": "8fab5feccdf8615c",
+        "name": "Query",
+        "info": "",
+        "x": 130,
+        "y": 220,
+        "wires": []
+    }
+]

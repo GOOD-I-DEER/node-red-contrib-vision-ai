@@ -1,0 +1,767 @@
+[
+    {
+        "id": "3abd784315b57070",
+        "type": "tab",
+        "label": "Monitoring Example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8d5478db3e57b123",
+        "type": "good-object-detection",
+        "z": "3abd784315b57070",
+        "name": "",
+        "returnValue": "0",
+        "model": "yolov8n",
+        "threshold": 0.5,
+        "absolutePathDir": "",
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "1170d079545471bd",
+                "cda1a873d1e04377"
+            ]
+        ]
+    },
+    {
+        "id": "cae77404cbade88a",
+        "type": "image",
+        "z": "3abd784315b57070",
+        "name": "iot capture image",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 370,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1170d079545471bd",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "check if person exists",
+        "func": "if(msg.payload.data.hasOwnProperty(\"person\")) {\n    msg.next = true;\n    msg.payload = msg.payload.originImg;\n} else {\n    msg.next = false;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 300,
+        "wires": [
+            [
+                "33e31a7d9b673cbf"
+            ]
+        ]
+    },
+    {
+        "id": "33e31a7d9b673cbf",
+        "type": "switch",
+        "z": "3abd784315b57070",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 300,
+        "wires": [
+            [
+                "866ccff8c2b9d53b"
+            ],
+            [
+                "f13cfa0f33c3b5b1",
+                "c3512ee077dd0719"
+            ]
+        ]
+    },
+    {
+        "id": "866ccff8c2b9d53b",
+        "type": "good-face-detection",
+        "z": "3abd784315b57070",
+        "name": "",
+        "returnValue": "1",
+        "threshold": 0.5,
+        "absolutePathDir": "",
+        "x": 1060,
+        "y": 260,
+        "wires": [
+            [
+                "6b18b3483a6238e6",
+                "3f2de214f01b1b27",
+                "6595cdf6afdc5b44",
+                "d727e6fce48dd200",
+                "7ea7fbc2973b2fa6",
+                "f0193a5a68fcb960"
+            ]
+        ]
+    },
+    {
+        "id": "f13cfa0f33c3b5b1",
+        "type": "file in",
+        "z": "3abd784315b57070",
+        "name": "Light Off",
+        "filename": "/node_modules/@good-i-deer/node-red-contrib-vision-ai/examples/dark.png",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1020,
+        "y": 320,
+        "wires": [
+            [
+                "06b91757709bb067",
+                "76d257949b25193a"
+            ]
+        ]
+    },
+    {
+        "id": "6b18b3483a6238e6",
+        "type": "image",
+        "z": "3abd784315b57070",
+        "name": "",
+        "width": 160,
+        "data": "payload.data.face[0]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1320,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3f2de214f01b1b27",
+        "type": "image",
+        "z": "3abd784315b57070",
+        "name": "",
+        "width": 160,
+        "data": "payload.data.face[1]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1320,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "6595cdf6afdc5b44",
+        "type": "image",
+        "z": "3abd784315b57070",
+        "name": "",
+        "width": 160,
+        "data": "payload.data.face[2]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1320,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d727e6fce48dd200",
+        "type": "image",
+        "z": "3abd784315b57070",
+        "name": "",
+        "width": 160,
+        "data": "payload.data.face[3]",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 1320,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "7ea7fbc2973b2fa6",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "check if face exists",
+        "func": "if (msg.payload.data.face.length != 0){\n    msg.next = true;\n    msg.payload = msg.payload.data.face;\n} else {\n    msg.next = false;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 260,
+        "wires": [
+            [
+                "8372b7facc97047e"
+            ]
+        ]
+    },
+    {
+        "id": "06b91757709bb067",
+        "type": "image",
+        "z": "3abd784315b57070",
+        "name": "result",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 650,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "8372b7facc97047e",
+        "type": "switch",
+        "z": "3abd784315b57070",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1450,
+        "y": 320,
+        "wires": [
+            [
+                "f43a7881f3a7a83e"
+            ],
+            [
+                "6c66c9b576497984",
+                "f8edc6b59dda5c4f"
+            ]
+        ]
+    },
+    {
+        "id": "7bf6dff189179161",
+        "type": "file in",
+        "z": "3abd784315b57070",
+        "name": "Light On",
+        "filename": "/node_modules/@good-i-deer/node-red-contrib-vision-ai/examples/light.png",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2560,
+        "y": 340,
+        "wires": [
+            [
+                "06b91757709bb067",
+                "0343fe1af774b512"
+            ]
+        ]
+    },
+    {
+        "id": "a6cbdf543139d4b6",
+        "type": "file in",
+        "z": "3abd784315b57070",
+        "name": "Light Off",
+        "filename": "/node_modules/@good-i-deer/node-red-contrib-vision-ai/examples/dark.png",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2560,
+        "y": 280,
+        "wires": [
+            [
+                "06b91757709bb067",
+                "d9842f878f96d232"
+            ]
+        ]
+    },
+    {
+        "id": "6c66c9b576497984",
+        "type": "file in",
+        "z": "3abd784315b57070",
+        "name": "Light On",
+        "filename": "/node_modules/@good-i-deer/node-red-contrib-vision-ai/examples/light.png",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1620,
+        "y": 360,
+        "wires": [
+            [
+                "06b91757709bb067",
+                "ed16ca76dc596d9c"
+            ]
+        ]
+    },
+    {
+        "id": "f43a7881f3a7a83e",
+        "type": "face-vectorization",
+        "z": "3abd784315b57070",
+        "name": "",
+        "inputType": "1",
+        "returnType": "0",
+        "path": "2312",
+        "x": 1670,
+        "y": 260,
+        "wires": [
+            [
+                "db19e49f65f45917",
+                "2af86d09e5063ff2"
+            ]
+        ]
+    },
+    {
+        "id": "61f60683dcacaf85",
+        "type": "switch",
+        "z": "3abd784315b57070",
+        "name": "",
+        "property": "next",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2350,
+        "y": 320,
+        "wires": [
+            [
+                "a6cbdf543139d4b6",
+                "c3512ee077dd0719"
+            ],
+            [
+                "7bf6dff189179161",
+                "f8edc6b59dda5c4f"
+            ]
+        ]
+    },
+    {
+        "id": "0343fe1af774b512",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "Messege",
+        "func": "return console.log(\"unregistered person\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2740,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9842f878f96d232",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "Messege",
+        "func": "return console.log(\"registered person\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2740,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed16ca76dc596d9c",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "Messege",
+        "func": "return console.log(\"Couldn't find the face.\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1820,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db19e49f65f45917",
+        "type": "debug",
+        "z": "3abd784315b57070",
+        "name": "Face vectorization results",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1930,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2af86d09e5063ff2",
+        "type": "calculate-cosine",
+        "z": "3abd784315b57070",
+        "name": "",
+        "file": "",
+        "x": 1930,
+        "y": 320,
+        "wires": [
+            [
+                "c69c8a66d5fa50e8",
+                "5bb42c0c28f23e2c"
+            ]
+        ]
+    },
+    {
+        "id": "5bb42c0c28f23e2c",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "temp function2",
+        "func": "for(let i=0;i<msg.payload.length;++i){\n    const list = msg.payload[i];\n    for(let j=0;j<list.length;++j){\n        if(list[j]>=0.8){\n            msg.next = true;\n            return msg;\n        }\n    }\n}\n\nmsg.next = false;\nreturn msg",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2180,
+        "y": 280,
+        "wires": [
+            [
+                "61f60683dcacaf85"
+            ]
+        ]
+    },
+    {
+        "id": "c69c8a66d5fa50e8",
+        "type": "debug",
+        "z": "3abd784315b57070",
+        "name": " Similarity results",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2180,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f8edc6b59dda5c4f",
+        "type": "command-device",
+        "z": "3abd784315b57070",
+        "name": "Light On Settiing",
+        "alias": "on",
+        "deviceNodeId": "eba7677008957596",
+        "deviceType": "installed-device",
+        "deviceId": "b26a6de3-6791-46d4-9c36-4ccaf33816d4",
+        "componentId": "",
+        "capabilityId": "switch_v1",
+        "attributeId": "on",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 1130,
+        "y": 40,
+        "wires": [
+            [
+                "fa2a9be8d98629f6"
+            ]
+        ]
+    },
+    {
+        "id": "fa2a9be8d98629f6",
+        "type": "command-device",
+        "z": "3abd784315b57070",
+        "name": "Light Option Setting",
+        "alias": "setColor:#ff33be",
+        "deviceNodeId": "eba7677008957596",
+        "deviceType": "installed-device",
+        "deviceId": "b26a6de3-6791-46d4-9c36-4ccaf33816d4",
+        "componentId": "",
+        "capabilityId": "colorControl_v1",
+        "attributeId": "setColor",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 1350,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3512ee077dd0719",
+        "type": "command-device",
+        "z": "3abd784315b57070",
+        "name": "Light Off Settiing",
+        "alias": "off",
+        "deviceNodeId": "eba7677008957596",
+        "deviceType": "installed-device",
+        "deviceId": "b26a6de3-6791-46d4-9c36-4ccaf33816d4",
+        "componentId": "",
+        "capabilityId": "switch_v1",
+        "attributeId": "off",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 1620,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04f7a0f81013baf0",
+        "type": "inject",
+        "z": "3abd784315b57070",
+        "name": "Start monitoring with 360 camera",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "c15806b4f4999035"
+            ]
+        ]
+    },
+    {
+        "id": "c15806b4f4999035",
+        "type": "command-device",
+        "z": "3abd784315b57070",
+        "name": "Smart Things 360 camera",
+        "alias": "take",
+        "deviceNodeId": "82d553e06ad08a53",
+        "deviceType": "installed-device",
+        "deviceId": "4da0b057-ab8f-44a3-af2b-ebcddfa29cfa",
+        "componentId": "",
+        "capabilityId": "imageCapture_v1",
+        "attributeId": "take",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "c73945183c8e4894"
+            ]
+        ]
+    },
+    {
+        "id": "c73945183c8e4894",
+        "type": "status-device",
+        "z": "3abd784315b57070",
+        "name": "Smart Things 360 camera",
+        "alias": "홈카메라 360 서울",
+        "deviceNodeId": "82d553e06ad08a53",
+        "deviceType": "installed-device",
+        "deviceId": "4da0b057-ab8f-44a3-af2b-ebcddfa29cfa",
+        "componentId": "",
+        "capabilityId": "imageCapture_v1",
+        "attributeId": "image",
+        "rules": [],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "29e1e9fb29d0870d"
+            ]
+        ]
+    },
+    {
+        "id": "29e1e9fb29d0870d",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "Get Url",
+        "func": "return {\n    \"url\" : msg.payload.components.main.imageCapture.image.value\n}",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "f18f3985db270bec"
+            ]
+        ]
+    },
+    {
+        "id": "f18f3985db270bec",
+        "type": "http request",
+        "z": "3abd784315b57070",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Authorization",
+                "valueType": "other",
+                "valueValue": "Bearer 2a4f1a67-8a2f-42a0-b48b-ec3b37565e23"
+            }
+        ],
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "8d5478db3e57b123",
+                "cae77404cbade88a"
+            ]
+        ]
+    },
+    {
+        "id": "cda1a873d1e04377",
+        "type": "debug",
+        "z": "3abd784315b57070",
+        "name": "Object Detection Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f0193a5a68fcb960",
+        "type": "debug",
+        "z": "3abd784315b57070",
+        "name": "Number of faces extracted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.data.face.length",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "76d257949b25193a",
+        "type": "function",
+        "z": "3abd784315b57070",
+        "name": "Messege",
+        "func": "return console.log(\"Couldn't find anyone.\");",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d7764aab359dca7",
+        "type": "installed-device",
+        "z": "3abd784315b57070",
+        "name": "SmartThings PAT",
+        "alias": "",
+        "device": "",
+        "devices": null,
+        "profileId": "4d7764aab359dca7",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    }
+]
