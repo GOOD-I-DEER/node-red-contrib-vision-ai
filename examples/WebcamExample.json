@@ -37,7 +37,7 @@
     },
     {
         "id": "22bc7eb63595a6d8",
-        "type": "webcam-object-detection",
+        "type": "good-webcam-object-detection",
         "z": "e64532d90f9d901d",
         "name": "",
         "model": "yolov8n",

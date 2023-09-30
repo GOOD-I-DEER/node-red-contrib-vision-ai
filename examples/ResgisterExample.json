@@ -261,7 +261,7 @@
     },
     {
         "id": "2ca56057b286ed99",
-        "type": "face-vectorization",
+        "type": "good-face-vectorization",
         "z": "055c98606c931f5b",
         "name": "",
         "inputType": "1",
@@ -508,7 +508,7 @@
     },
     {
         "id": "94ea6ac664b94b5a",
-        "type": "face-vectorization",
+        "type": "good-face-vectorization",
         "z": "055c98606c931f5b",
         "name": "",
         "inputType": "1",
@@ -980,7 +980,7 @@
     },
     {
         "id": "42818e21ad5b7524",
-        "type": "face-vectorization",
+        "type": "good-face-vectorization",
         "z": "055c98606c931f5b",
         "name": "",
         "inputType": "1",

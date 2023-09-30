@@ -10,7 +10,10 @@ module.exports = function (RED) {
       let resultArray = [];
       for (let i = 0; i < ArrayA.length; i++) {
         let resultCosineSimilarity = cosineSimilarity(ArrayA[i], ArrayB);
-        if (resultCosineSimilarity === ERROR_VECTOR_LENGTH_ZERO || resultCosineSimilarity === ERROR_COSINE_SIMILARITY_NAN) {
+        if (
+          resultCosineSimilarity === ERROR_VECTOR_LENGTH_ZERO ||
+          resultCosineSimilarity === ERROR_COSINE_SIMILARITY_NAN
+        ) {
           return resultCosineSimilarity;
         }
         resultArray.push(resultCosineSimilarity);
@@ -66,7 +69,9 @@ module.exports = function (RED) {
       if (!input_vectors) {
         this.error("Input vector is not valid.");
       } else if (stored_vectors == ERROR_FILE_PARSING) {
-        this.error("Stored vector is not valid. Error occured while parsing file.");
+        this.error(
+          "Stored vector is not valid. Error occured while parsing file."
+        );
       } else {
         let result = devideSimilarity(input_vectors, stored_vectors);
         switch (result) {
@@ -81,8 +86,7 @@ module.exports = function (RED) {
             this.send(msg);
         }
       }
-
     });
   }
-  RED.nodes.registerType("calculate-cosine", CalculateCosine);
+  RED.nodes.registerType("good-calculate-cosine", CalculateCosine);
 };

@@ -328,7 +328,7 @@
     },
     {
         "id": "f43a7881f3a7a83e",
-        "type": "face-vectorization",
+        "type": "good-face-vectorization",
         "z": "3abd784315b57070",
         "name": "",
         "inputType": "1",
@@ -447,7 +447,7 @@
     },
     {
         "id": "2af86d09e5063ff2",
-        "type": "calculate-cosine",
+        "type": "good-calculate-cosine",
         "z": "3abd784315b57070",
         "name": "",
         "file": "",

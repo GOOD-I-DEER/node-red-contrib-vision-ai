@@ -62,7 +62,10 @@ module.exports = function (RED) {
 
         const input = await imageTransfer(inputData);
 
-        const inputTensor = new onnx.Tensor(Float32Array.from(input), inputDims);
+        const inputTensor = new onnx.Tensor(
+          Float32Array.from(input),
+          inputDims
+        );
 
         const feeds = {};
         feeds[inputName] = inputTensor;
@@ -71,7 +74,9 @@ module.exports = function (RED) {
 
         return Array.from(outputData.output.data);
       } catch (error) {
-        throw new Error("Image vectorization error: " + error.message.split("\n")[0]);
+        throw new Error(
+          "Image vectorization error: " + error.message.split("\n")[0]
+        );
       }
     }
 
@@ -99,9 +104,11 @@ module.exports = function (RED) {
 
         return input;
       } catch (error) {
-        throw new Error("Image transfer error: " + error.message.split("\n")[0]);
+        throw new Error(
+          "Image transfer error: " + error.message.split("\n")[0]
+        );
       }
     }
   }
-  RED.nodes.registerType("face-vectorization", FaceVectorizationNode);
+  RED.nodes.registerType("good-face-vectorization", FaceVectorizationNode);
 };
