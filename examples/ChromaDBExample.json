@@ -38,7 +38,7 @@
     },
     {
         "id": "7aa75543c37c854b",
-        "type": "chroma-db",
+        "type": "good-chroma-db",
         "z": "8fab5feccdf8615c",
         "name": "",
         "dbIp": "http://localhost",
@@ -103,7 +103,7 @@
     },
     {
         "id": "27d39b2212dfb94b",
-        "type": "chroma-db",
+        "type": "good-chroma-db",
         "z": "8fab5feccdf8615c",
         "name": "Insert",
         "dbIp": "http://localhost",
@@ -149,7 +149,7 @@
     },
     {
         "id": "e93bc75960bd7916",
-        "type": "chroma-db",
+        "type": "good-chroma-db",
         "z": "8fab5feccdf8615c",
         "name": "Create",
         "dbIp": "http://localhost",
